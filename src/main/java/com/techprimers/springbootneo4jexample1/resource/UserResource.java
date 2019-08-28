@@ -7,6 +7,7 @@ import com.techprimers.springbootneo4jexample1.repository.UserRepository;
 import com.techprimers.springbootneo4jexample1.service.MovieService;
 import com.techprimers.springbootneo4jexample1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,15 @@ public class UserResource {
     @GetMapping("Relations")
     public Collection<User> getAllMaps() {
         return userService.getAllRelations();
+    }
+
+    @PostMapping("/{name1}/{name2}")
+    public ResponseEntity<Movie> createRelation(@PathVariable("name1")String name1,@PathVariable("name2") String name2){
+        ResponseEntity responseEntity;
+        System.out.println(name1+" "+name2);
+        movieService.createRelation(name1,name2);
+        responseEntity=new ResponseEntity("Succesfully Created", HttpStatus.CREATED);
+        return responseEntity;
     }
 
     @PostMapping("user")

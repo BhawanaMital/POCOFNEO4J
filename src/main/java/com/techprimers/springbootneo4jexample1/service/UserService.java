@@ -29,7 +29,7 @@ public class UserService {
 
     public User saveUser(User user) {
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.saveUser(user.getId(),user.getName(),user.getAge());
         return savedUser;
     }
 
@@ -50,13 +50,13 @@ public class UserService {
         return false;
     }
 
-//    public void createRelation(String id1,String id2) {
-//      System.out.println("Inside the UserService : createRelation() "+ id1+"  "+id2);
-//      User user=userRepository.findByName(id1);
-//        //System.out.println(user);
-//     //Movie movie=movieRepository.getById(id2);
-//       //userRepository.createRelationships(user,movie,user.getName(),movie.getTitle());
-//    }
+    public void createRelation(String id1,Long id2) {
+      System.out.println("Inside the UserService : createRelation() "+ id1+"  "+id2);
+      User user=userRepository.findByName(id1);
+        //System.out.println(user);
+     Movie movie=movieRepository.getById(id2);
+       userRepository.createRelationships(user,movie,user.getName(),movie.getTitle());
+    }
 
 
 //    public void deleteRelations(String name, String title) {

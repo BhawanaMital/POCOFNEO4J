@@ -1,6 +1,6 @@
 package com.techprimers.springbootneo4jexample1.service;
-
 import com.techprimers.springbootneo4jexample1.model.Movie;
+//import com.techprimers.springbootneo4jexample1.model.User;
 import com.techprimers.springbootneo4jexample1.model.User;
 import com.techprimers.springbootneo4jexample1.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +26,21 @@ public class MovieService {
 
     public boolean saveMovie(Movie movie) {
 
-        Movie savedMovie = movieRepository.save(movie);
+        Movie savedMovie = movieRepository.saveMovie(movie.getId(),movie.getTitle(),movie.getDirector());
         return true;
     }
 
+    public String createRelation(String name1, String  name2){
+        return movieRepository.createRelation(name1,name2);
+
+    }
     public boolean updateMovie(Movie movie) {
 
         Movie savedMovie;
-        if (movieRepository.findByTitle(movie.getTitle()).isEmpty()) {
+        if (!movieRepository.findByTitle(movie.getTitle()).isEmpty()) {
 
-            savedMovie = movieRepository.save(movie);
+            movieRepository.delete(movie.getId());
+            savedMovie = movieRepository.saveMovie(movie.getId(),movie.getTitle(),movie.getDirector());
             return true;
          }
 
